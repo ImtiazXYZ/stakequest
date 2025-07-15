@@ -1,0 +1,96 @@
+body {
+  background: #0b0f1a;
+  font-family: Arial, sans-serif;
+  color: #fff;
+}
+
+.roadmap-container {
+  position: relative;
+  width: 800px;
+  margin: 50px auto;
+}
+
+.roadmap-container h1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.roadmap-container .subtitle {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 50px;
+}
+
+.timeline {
+  position: absolute;
+  left: 50%;
+  top: 140px;
+  bottom: 0;
+  width: 4px;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+.stage {
+  background: #111726;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  position: relative;
+  margin-bottom: 50px;
+  opacity: 0;
+  animation: fadeSlide 1s ease forwards;
+}
+
+.stage.left {
+  margin-right: auto;
+  border-left: 5px solid #00f5a0;
+}
+
+.stage.right {
+  margin-left: auto;
+  border-right: 5px solid #00f5a0;
+}
+
+.stage .dot {
+  position: absolute;
+  top: 20px;
+  width: 20px;
+  height: 20px;
+  background: #00f5a0;
+  border-radius: 50%;
+}
+
+.stage.left .dot {
+  right: -40px;
+}
+
+.stage.right .dot {
+  left: -40px;
+}
+
+.stage h2 {
+  margin: 0 0 10px;
+  white-space: pre-line;
+}
+
+.stage ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stage ul li {
+  margin-bottom: 5px;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
