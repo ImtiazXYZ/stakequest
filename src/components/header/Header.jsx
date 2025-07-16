@@ -216,6 +216,24 @@ export default function Header() {
             display: none !important;
           }
         }
+
+        /* Connect Wallet button style for both desktop and drawer */
+        .btn-connect {
+          display: inline-block;
+          padding: 0.5rem 1.2rem;
+          background: #7f00ff; /* violet button */
+          color: #fff !important;
+          border-radius: 4px;
+          font-weight: 600;
+          text-align: center;
+          transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-connect:hover {
+          background: #5e00c5; /* darker violet on hover */
+          color: #fff;
+        }
+
       `}</style>
 
       {/* Header */}
@@ -231,13 +249,16 @@ export default function Header() {
           <ul>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About</Link></li>
-            <li><Link to="/tournament">Tournament</Link></li>
+            {/* <li><Link to="/tournament">Tournament</Link></li> */}
             <li><Link to="/blog">Blog</Link></li>
-            <li><Link to="/shop">Shop</Link></li>
+            {/* <li><Link to="/shop">Shop</Link></li> */}
             <li><Link to="/contact">Contact</Link></li>
              <li><Link to="/team_members">Team Members</Link></li>
-           <li><Link to="/connectwallet">Connect Wallet</Link></li>
-
+              <li>
+                <Link to="/connectwallet" className="btn-connect">
+                  Connect Wallet
+                </Link>
+              </li>
           </ul>
         </nav>
 
@@ -262,14 +283,17 @@ export default function Header() {
         <ul>
           <li><Link to="/" onClick={toggleDrawer}>Home</Link></li>
           <li><Link to="/about" onClick={toggleDrawer}>About</Link></li>
-          <li><Link to="/tournament" onClick={toggleDrawer}>Tournament</Link></li>
+          {/* <li><Link to="/tournament" onClick={toggleDrawer}>Tournament</Link></li> */}
           <li><Link to="/blog" onClick={toggleDrawer}>Blog</Link></li>
-          <li><Link to="/shop" onClick={toggleDrawer}>Shop</Link></li>
+          {/* <li><Link to="/shop" onClick={toggleDrawer}>Shop</Link></li> */}
           <li><Link to="/contact" onClick={toggleDrawer}>Contact</Link></li>
           <li><Link to="/team_members" onClick={toggleDrawer}>Team Members</Link></li>
 
-          <li><Link to="/connectwallet" onClick={toggleDrawer}>Connect Wallet</Link></li>
-
+          <li>
+            <Link to="/connectwallet" className="btn-connect" onClick={toggleDrawer}>
+              Connect Wallet
+            </Link>
+          </li>
         </ul>
       </div>
 
