@@ -16,7 +16,7 @@ import GamePage from './pages/GamePage';
 import PointTable from './pages/PointTable';
 import Contact from './pages/ContactPage';
 import CustomCursor from './components/CustomCursor';
-
+import ConnectWallet from './pages/ConnectWallet';
 
 
 function App() {
@@ -46,6 +46,7 @@ function App() {
             <Route path="/gamepage" element={<GamePage />} />
             <Route path="/point-table" element={<PointTable />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/connectwallet" element={<ConnectWallet />} />
 
 
 
