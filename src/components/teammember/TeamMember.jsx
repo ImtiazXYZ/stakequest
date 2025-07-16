@@ -1,261 +1,323 @@
-import React, { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/autoplay";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useEffect, useRef } from "react";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+const styles = {
+  breadcumbWrapper: {
+    backgroundImage: `url('/assets/img/bg/breadcumb-bg.jpg')`,
+    padding: "80px 0",
+    color: "#fff",
+    textAlign: "center",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  },
+  breadcumbMenu: {
+    listStyle: "none",
+    padding: 0,
+    marginTop: 10,
+    display: "inline-flex",
+    gap: 10,
+    color: "#ccc",
+    fontSize: "0.9rem",
+  },
+  breadcumbLink: {
+    color: "#ccc",
+    textDecoration: "none",
+    cursor: "pointer",
+    transition: "color 0.3s ease",
+  },
+  breadcumbLinkHover: {
+    color: "#fff",
+  },
+  teamSection: {
+    position: "relative",
+    overflow: "hidden",
+    padding: "80px 20px",
+    backgroundColor: "#111",
+    color: "#eee",
+    zIndex: 1,
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background:
+      "linear-gradient(135deg, rgba(255,0,150,0.4) 0%, rgba(0,204,255,0.4) 100%)",
+    zIndex: 0,
+  },
+  container: {
+    position: "relative",
+    maxWidth: 1200,
+    margin: "0 auto",
+    zIndex: 1,
+  },
+  titleArea: {
+    textAlign: "center",
+    marginBottom: 60,
+  },
+  subTitle: {
+    color: "#ff0080",
+    fontWeight: "bold",
+    fontSize: "1.1rem",
+    letterSpacing: 2,
+    display: "block",
+    marginBottom: 12,
+  },
+  secTitle: {
+    fontSize: "2.8rem",
+    fontWeight: "700",
+  },
+  teamGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+    gap: "30px",
+    padding: "20px 0",
+  },
+  teamCard: {
+    backgroundColor: "#222",
+    borderRadius: "12px",
+    overflow: "hidden",
+    position: "relative",
+    transition: "all 0.3s ease",
+    boxShadow: "0 0 10px rgba(255,0,150,0.3)",
+    opacity: 0,
+    transform: "translateY(30px)",
+  },
+  teamCardHover: {
+    transform: "scale(1.05)",
+    boxShadow: "0 0 15px #ff00aa",
+  },
+  teamImgWrapper: {
+    position: "relative",
+    overflow: "hidden",
+    height: "320px",
+  },
+  teamImg: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    transition: "transform 0.5s ease",
+  },
+  teamImgHover: {
+    transform: "scale(1.1)",
+  },
+  gameLogo: {
+    position: "absolute",
+    bottom: "20px",
+    left: "20px",
+    width: "60px",
+    height: "60px",
+    objectFit: "contain",
+    zIndex: 2,
+    backgroundColor: "#111",
+    borderRadius: "50%",
+    padding: "5px",
+    border: "2px solid #ff0080",
+  },
+  teamContent: {
+    padding: "20px",
+    textAlign: "center",
+  },
+  teamName: {
+    color: "#fff",
+    fontSize: "1.5rem",
+    fontWeight: "600",
+    margin: "10px 0 5px",
+  },
+  teamRole: {
+    color: "#ff0080",
+    fontSize: "0.9rem",
+    fontWeight: "500",
+    marginBottom: "10px",
+  },
+  teamDesc: {
+    color: "#bbb",
+    fontSize: "0.9rem",
+    lineHeight: "1.5",
+  },
+  breadcumbTitle: {
+    opacity: 0,
+    transform: "translateY(-20px)",
+    animation: "fadeInDown 0.7s forwards",
+    marginTop: "30px",
+  },
+  titleAnimation: {
+    opacity: 0,
+    transform: "translateY(20px)",
+    animation: "fadeInUp 0.8s 0.2s forwards",
+  },
+};
 
 const teamMembers = [
   {
-    img: "/assets/img/team/1-1.png",
-    logo: "/assets/img/team/game-logo1-1.png",
+    id: 1,
     name: "Max Alexis",
-    link: "team-details.html",
+    role: "FPS Specialist",
+    image: "/assets/img/team/1-1.png",
+    gameLogo: "/assets/img/team/game-logo1-1.png",
+    description: "Former professional esports player with 10+ years in competitive FPS titles. Specializes in tactical shooters and aim training."
   },
   {
-    img: "/assets/img/team/1-2.png",
-    logo: "/assets/img/team/game-logo1-2.png",
+    id: 2,
     name: "Wilium Lili",
-    link: "team-details.html",
+    role: "MMORPG Strategist",
+    image: "/assets/img/team/1-2.png",
+    gameLogo: "/assets/img/team/game-logo1-2.png",
+    description: "World-first raider and economy guru with deep knowledge of MMO systems and player progression optimization."
   },
   {
-    img: "/assets/img/team/1-3.png",
-    logo: "/assets/img/team/game-logo1-3.png",
+    id: 3,
     name: "Mac Marsh",
-    link: "team-details.html",
+    role: "Battle Royale Champion",
+    image: "/assets/img/team/1-3.png",
+    gameLogo: "/assets/img/team/game-logo1-3.png",
+    description: "Top-ranked BR player with multiple tournament wins. Focuses on team dynamics and survival strategies."
   },
   {
-    img: "/assets/img/team/1-4.png",
-    logo: "/assets/img/team/game-logo1-4.png",
+    id: 4,
     name: "Eva Raina",
-    link: "team-details.html",
+    role: "RPG Designer",
+    image: "/assets/img/team/1-4.png",
+    gameLogo: "/assets/img/team/game-logo1-4.png",
+    description: "Narrative designer specializing in immersive RPG experiences and complex quest systems."
   },
   {
-    img: "/assets/img/team/1-5.png",
-    logo: "/assets/img/team/game-logo1-5.png",
+    id: 5,
     name: "Robin Cloth",
-    link: "team-details.html",
+    role: "Mobile Gaming Expert",
+    image: "/assets/img/team/1-5.png",
+    gameLogo: "/assets/img/team/game-logo1-5.png",
+    description: "Expert in mobile game mechanics and intuitive UI/UX design for touchscreen gameplay."
   },
+  {
+    id: 6,
+    name: "Sarah Connor",
+    role: "Esports Coach",
+    image: "/assets/img/team/1-6.png",
+    gameLogo: "/assets/img/team/game-logo1-6.png",
+    description: "Professional esports coach with championship-winning teams across multiple game genres."
+  }
 ];
 
-const Team = () => {
-  const [isMobile, setIsMobile] = useState(false);
+// CSS animation keyframes
+const animationStyles = `
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .team-card {
+    animation: fadeInUp 0.5s forwards;
+  }
+`;
+
+export default function Team() {
+  const teamCardRefs = useRef([]);
 
   useEffect(() => {
-    // Check on mount
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkIsMobile();
-
-    // Listen for resize
-    window.addEventListener("resize", checkIsMobile);
-    return () => window.removeEventListener("resize", checkIsMobile);
+    // Add animation delays to team cards
+    teamCardRefs.current.forEach((el, idx) => {
+      if (el) {
+        el.style.animationDelay = `${idx * 0.15}s`;
+        el.classList.add('team-card');
+      }
+    });
   }, []);
 
-  useEffect(() => {
-    const teamCards = document.querySelectorAll(".th-team");
-
-    teamCards.forEach((card) => {
-      card.addEventListener("mouseenter", () => {
-        gsap.to(card, {
-          y: -10,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-        gsap.to(card.querySelector(".team-img img"), {
-          scale: 1.05,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-      });
-
-      card.addEventListener("mouseleave", () => {
-        gsap.to(card, {
-          y: 0,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-        gsap.to(card.querySelector(".team-img img"), {
-          scale: 1,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-      });
-    });
-
-    gsap.from(".team-sec-1 .title-area", {
-      scrollTrigger: {
-        trigger: ".team-sec-1",
-        start: "top 80%",
-        toggleActions: "play none none none",
-      },
-      y: 50,
-      opacity: 0,
-      duration: 1,
-      ease: "power3.out",
-    });
-
-    gsap.from(".th-slider .swiper-slide, .horizontal-scroll .th-team", {
-      scrollTrigger: {
-        trigger: ".team-sec-1",
-        start: "top 70%",
-        toggleActions: "play none none none",
-      },
-      y: 80,
-      opacity: 0,
-      stagger: 0.1,
-      duration: 0.8,
-      ease: "power3.out",
-      delay: 0.3,
-    });
-  }, [isMobile]);
-
   return (
-    <section className="team-sec-1 space relative overflow-hidden">
-      <div className="team-shape1-1 shape-mockup absolute top-0 right-0 w-full h-full -z-10">
-        <img
-          src="/assets/img/bg/team-sec1-bg.png"
-          alt="Background"
-          className="w-full h-full object-cover"
-        />
-      </div>
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 relative">
-        <div className="row justify-center">
-          <div className="w-full lg:w-10/12 xl:w-8/12">
-            <div className="title-area text-center mb-12 md:mb-16 lg:mb-20">
-              <span className="sub-title inline-block text-primary text-lg font-medium mb-3 tracking-wider">
-                # Core Team & Advisors
-              </span>
-              <h2 className="sec-title text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-0">
-                Meet Our StakeQuest Legends Team
-              </h2>
-            </div>
+    <>
+      <style>{animationStyles}</style>
+      
+      {/* Breadcumb */}
+      <div style={styles.breadcumbWrapper}>
+        <div style={styles.container}>
+          <div>
+            <h1 style={styles.breadcumbTitle} className="breadcumb-title">Our Team</h1>
+            <ul style={styles.breadcumbMenu}>
+              <li>
+                <a 
+                  href="/" 
+                  style={styles.breadcumbLink}
+                  onMouseEnter={(e) => e.target.style.color = "#fff"}
+                  onMouseLeave={(e) => e.target.style.color = "#ccc"}
+                >
+                  Home
+                </a>
+              </li>
+              <li>Our Team</li>
+            </ul>
           </div>
         </div>
-
-        <div className="slider-area team-slider1 relative">
-          {isMobile ? (
-            <div className="horizontal-scroll flex overflow-x-auto space-x-4 pb-4">
-              {teamMembers.map((member, index) => (
-                <div
-                  key={index}
-                  className="th-team team-card flex-shrink-0 w-64 relative bg-gradient-to-b from-transparent to-gray-900/50 rounded-lg overflow-hidden border border-gray-700/50 transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10"
-                >
-                  {/* Corner decorations */}
-                  <div className="team-card-corner team-card-corner1 absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-primary"></div>
-                  <div className="team-card-corner team-card-corner2 absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-primary"></div>
-                  <div className="team-card-corner team-card-corner3 absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-primary"></div>
-                  <div className="team-card-corner team-card-corner4 absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-primary"></div>
-
-                  <div className="img-wrap relative group">
-                    <div className="team-img overflow-hidden">
-                      <img
-                        src={member.img}
-                        alt={member.name}
-                        className="w-full h-auto transition-transform duration-500 ease-out"
-                      />
-                    </div>
-                    <img
-                      className="game-logo absolute bottom-4 left-4 w-12 h-12 object-contain z-10 transition-all duration-300 group-hover:scale-110"
-                      src={member.logo}
-                      alt={member.name}
-                    />
-                  </div>
-                  <div className="team-card-content p-4 text-center">
-                    <h3 className="box-title text-xl font-bold text-white mb-0">
-                      <a
-                        href={member.link}
-                        className="hover:text-primary transition-colors duration-300"
-                      >
-                        {member.name}
-                      </a>
-                    </h3>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <>
-              <Swiper
-                modules={[Navigation, Autoplay]}
-                slidesPerView={5}
-                spaceBetween={30}
-                navigation={{
-                  nextEl: ".team-slider1 .slider-next",
-                  prevEl: ".team-slider1 .slider-prev",
-                }}
-                autoplay={{
-                  delay: 3000,
-                  disableOnInteraction: false,
-                }}
-                loop={true}
-                breakpoints={{
-                  400: { slidesPerView: 1.5 },
-                  576: { slidesPerView: 2 },
-                  768: { slidesPerView: 3 },
-                  992: { slidesPerView: 4 },
-                  1200: { slidesPerView: 5 },
-                }}
-                className="th-slider has-shadow"
-              >
-                {[...teamMembers, ...teamMembers].map((member, index) => (
-                  <SwiperSlide key={index}>
-                    <div className="th-team team-card relative bg-gradient-to-b from-transparent to-gray-900/50 rounded-lg overflow-hidden border border-gray-700/50 transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10">
-                      {/* Corners */}
-                      <div className="team-card-corner team-card-corner1 absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-primary"></div>
-                      <div className="team-card-corner team-card-corner2 absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-primary"></div>
-                      <div className="team-card-corner team-card-corner3 absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-primary"></div>
-                      <div className="team-card-corner team-card-corner4 absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-primary"></div>
-
-                      <div className="img-wrap relative group">
-                        <div className="team-img overflow-hidden">
-                          <img
-                            src={member.img}
-                            alt={member.name}
-                            className="w-full h-auto transition-transform duration-500 ease-out"
-                          />
-                        </div>
-                        <img
-                          className="game-logo absolute bottom-4 left-4 w-12 h-12 object-contain z-10 transition-all duration-300 group-hover:scale-110"
-                          src={member.logo}
-                          alt={member.name}
-                        />
-                      </div>
-                      <div className="team-card-content p-4 text-center">
-                        <h3 className="box-title text-xl font-bold text-white mb-0">
-                          <a
-                            href={member.link}
-                            className="hover:text-primary transition-colors duration-300"
-                          >
-                            {member.name}
-                          </a>
-                        </h3>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-
-              <button className="slider-arrow slider-prev absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-gray-800/80 hover:bg-primary transition-colors duration-300 flex items-center justify-center text-white text-xl shadow-lg -ml-4 md:-ml-6">
-                <i className="far fa-arrow-left"></i>
-              </button>
-              <button className="slider-arrow slider-next absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-gray-800/80 hover:bg-primary transition-colors duration-300 flex items-center justify-center text-white text-xl shadow-lg -mr-4 md:-mr-6">
-                <i className="far fa-arrow-right"></i>
-              </button>
-            </>
-          )}
-        </div>
       </div>
-    </section>
-  );
-};
 
-export default Team;
+      {/* Team Section */}
+      <section style={styles.teamSection}>
+        <div style={styles.overlay} />
+        <div style={styles.container}>
+          <div style={styles.titleArea}>
+            <span style={styles.subTitle}># Meet The Professionals</span>
+            <h2 style={{...styles.secTitle, ...styles.titleAnimation}}>
+              Our Elite Gaming Specialists
+            </h2>
+          </div>
+          
+          <div style={styles.teamGrid}>
+            {teamMembers.map((member, idx) => (
+              <div
+                key={member.id}
+                style={styles.teamCard}
+                ref={el => teamCardRefs.current[idx] = el}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "scale(1.05)";
+                  e.currentTarget.style.boxShadow = "0 0 15px #ff00aa";
+                  e.currentTarget.querySelector('img').style.transform = "scale(1.1)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
+                  e.currentTarget.style.boxShadow = "0 0 10px rgba(255,0,150,0.3)";
+                  e.currentTarget.querySelector('img').style.transform = "scale(1)";
+                }}
+              >
+                <div style={styles.teamImgWrapper}>
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    style={styles.teamImg}
+                    loading="lazy"
+                  />
+                  <img
+                    src={member.gameLogo}
+                    alt={member.role}
+                    style={styles.gameLogo}
+                  />
+                </div>
+                <div style={styles.teamContent}>
+                  <h3 style={styles.teamName}>{member.name}</h3>
+                  <p style={styles.teamRole}>{member.role}</p>
+                  <p style={styles.teamDesc}>{member.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

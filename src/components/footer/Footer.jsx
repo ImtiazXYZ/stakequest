@@ -119,7 +119,6 @@ const Footer = () => (
               <div className="th-widget-about">
                 <div className="about-logo">
                   <a href="index.html">
-                    <span className="logo-mask"></span>
                     <img src="assets/img/logo.svg" alt="Bame" />
                   </a>
                 </div>
@@ -191,7 +190,7 @@ const Footer = () => (
         <div className="row align-items-center justify-content-center">
           <div className="col-lg-6">
             <p className="copyright-text">
-              <i className="fal fa-copyright"></i> Copyright 2024 <a href="index.html">StakeQuest.</a> All Rights Reserved.
+              <i className="fal fa-copyright"></i> Copyright 2025 <a href="index.html">StakeQuest.</a> All Rights Reserved.
             </p>
           </div>
         </div>
