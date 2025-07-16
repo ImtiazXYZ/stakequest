@@ -235,6 +235,7 @@ export default function Header() {
             <li><Link to="/blog">Blog</Link></li>
             <li><Link to="/shop">Shop</Link></li>
             <li><Link to="/contact">Contact</Link></li>
+             <li><Link to="/team_members">Team Members</Link></li>
            <li><Link to="/connectwallet">Connect Wallet</Link></li>
 
           </ul>
@@ -265,6 +266,8 @@ export default function Header() {
           <li><Link to="/blog" onClick={toggleDrawer}>Blog</Link></li>
           <li><Link to="/shop" onClick={toggleDrawer}>Shop</Link></li>
           <li><Link to="/contact" onClick={toggleDrawer}>Contact</Link></li>
+          <li><Link to="/team_members" onClick={toggleDrawer}>Team Members</Link></li>
+
           <li><Link to="/connectwallet" onClick={toggleDrawer}>Connect Wallet</Link></li>
 
         </ul>
