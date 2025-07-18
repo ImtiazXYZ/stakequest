@@ -4,179 +4,189 @@ const Footer = () => (
   <footer className="footer">
     <style>{`
       .footer {
-        background: url('assets/img/bg/footer2-bg.png') no-repeat center center;
-        background-size: cover;
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
         color: white;
-        padding: 0px 0 0;
-        font-family: Arial, sans-serif;
+        padding: 80px 0 0;
         text-align: center;
-        margin-top:-100px;
+        font-family: 'Arial', sans-serif;
+        position: relative;
+        overflow: hidden;
       }
 
-      .footer .footer-top-shape {
-        background: url('assets/img/bg/jiji-bg.png') repeat;
-        height: 50px;
-        margin-bottom: 50px;
-      }
-
-      .widget-area {
-        padding: 0 0 50px;
+      .footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('assets/img/bg/footerbg.jpg') repeat;
+        opacity: 0.05;
+        z-index: 0;
       }
 
       .container {
+        position: relative;
+        z-index: 1;
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 15px;
       }
 
-      .footer-widget {
-        margin-bottom: 40px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .about-logo img {
-        width: 150px;
-        margin-bottom: 20px;
-      }
-
-      .about-text {
-        margin: 20px 0;
-        line-height: 1.6;
-        color: white;
-        max-width: 300px;
-      }
-
-      .widget_title {
-        font-size: 20px;
-        margin-bottom: 20px;
-        color: white;
+      /* Newsletter Section */
+      .newsletter-box {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        margin: 0 auto 60px;
+        max-width: 800px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         position: relative;
-        display: inline-block;
-        padding-bottom: 10px;
+        overflow: hidden;
       }
 
-      .widget_title:after {
-        content: '';
+      .newsletter-box::before {
+        content: "";
         position: absolute;
-        left: 50%;
-        bottom: 0;
-        transform: translateX(-50%);
-        width: 50px;
-        height: 2px;
-        background: #00f5a0;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,0,128,0.2) 0%, rgba(255,0,128,0) 70%);
+        z-index: -1;
       }
 
-      .menu {
-        list-style: none;
-        padding: 0;
-        margin: 0;
+      .newsletter-title {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+        background: linear-gradient(90deg, #ff007f, #ff8a00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
       }
 
-      .menu li {
-        margin-bottom: 12px;
-      }
-
-      .menu li a {
-        color: white;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        display: inline-block;
-      }
-
-      .menu li a:hover {
-        color: #00f5a0;
-        transform: translateX(5px);
-      }
-
-      .menu li a i {
-        margin-right: 8px;
-        color: #00f5a0;
-      }
-
-      .th-widget-contact .th-social {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        margin-top: 20px;
-      }
-
-      .th-widget-contact .th-social a {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 36px;
-        height: 36px;
-        background: rgba(255,255,255,0.1);
-        border-radius: 50%;
-        transition: all 0.3s ease;
-      }
-
-      .th-widget-contact .th-social a:hover {
-        background: #00f5a0;
-        transform: translateY(-3px);
-      }
-
-      .th-widget-contact .th-social img,
-      .th-widget-contact .th-social i {
-        width: 18px;
-        height: 18px;
-        color: white;
-      }
-
-      .newsletter-widget .footer-text {
-        margin-bottom: 20px;
-        color: white;
-        max-width: 300px;
-        line-height: 1.6;
+      .newsletter-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+        color: rgba(255, 255, 255, 0.8);
+        letter-spacing: 1px;
       }
 
       .newsletter-form {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  background-color: #7f00ff; /* violet background */
-  padding: 15px;
-  border-radius: 8px;
-}
-
-.newsletter-form .form-control {
-  flex: 1;
-  min-width: 200px;
-  padding: 10px;
-  border: none;
-  border-radius: 4px 0 0 4px;
-}
-
-.newsletter-form .th-btn {
-  padding: 10px 15px;
-  background: #00f5a0;
-  border: none;
-  border-radius: 0 4px 4px 0;
-  cursor: pointer;
-  color: #000; /* button icon color */
-}
-
-
-      .newsletter-form .th-btn:hover {
-        background: #00c47e;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        max-width: 600px;
+        margin: 0 auto;
       }
 
-      .copyright-wrap {
-        background: url('assets/img/bg/jiji-bg.png') repeat;
-        padding: 20px 0;
-        text-align: center;
+      .newsletter-input {
+        flex: 1;
+        min-width: 250px;
+        padding: 18px 25px;
+        border: none;
+        border-radius: 50px;
+        background: rgba(0, 0, 0, 0.3);
         color: white;
-        border-top: 1px solid rgba(255,255,255,0.1);
+        font-size: 1rem;
+        outline: none;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .newsletter-input:focus {
+        border-color: #ff007f;
+        box-shadow: 0 0 0 3px rgba(255, 0, 127, 0.2);
+      }
+
+      .newsletter-input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .subscribe-btn {
+        padding: 18px 40px;
+        background: linear-gradient(90deg, #ff007f, #ff8a00);
+        border: none;
+        border-radius: 50px;
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(255, 0, 127, 0.3);
+      }
+
+      .subscribe-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 0, 127, 0.4);
+      }
+
+      /* Footer Menu */
+      .footer-menu {
+        margin: 40px 0;
+      }
+
+      .footer-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      .footer-nav a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 500;
+        padding: 8px 15px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .footer-nav a:hover {
+        color: #ff007f;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .footer-nav a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: #ff007f;
+        transition: all 0.3s ease;
+      }
+
+      .footer-nav a:hover::after {
+        width: 100%;
+        left: 0;
+      }
+
+      /* Copyright */
+      .copyright {
+        padding: 25px 0;
+        background: rgba(0, 0, 0, 0.2);
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        margin-top: 40px;
       }
 
       .copyright-text {
         margin: 0;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9rem;
       }
 
       .copyright-text a {
-        color: #00f5a0;
+        color: #ff007f;
         text-decoration: none;
         transition: all 0.3s ease;
       }
@@ -185,124 +195,76 @@ const Footer = () => (
         text-decoration: underline;
       }
 
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 30px;
-      }
-
-      .col-md-6 {
-        flex: 0 0 calc(50% - 30px);
-        max-width: calc(50% - 30px);
-      }
-
-      .col-xl-auto {
-        flex: 0 0 auto;
-        width: auto;
-        max-width: 100%;
-      }
-
-      @media (min-width: 992px) {
-        .col-md-6 {
-          flex: 0 0 calc(25% - 30px);
-          max-width: calc(25% - 30px);
-        }
-      }
-
+      /* Responsive */
       @media (max-width: 768px) {
-        .col-md-6 {
-          flex: 0 0 100%;
-          max-width: 100%;
+        .newsletter-box {
+          padding: 30px 20px;
+          margin-bottom: 40px;
         }
-        
-        .footer-widget {
-          margin-bottom: 30px;
+
+        .newsletter-title {
+          font-size: 1.8rem;
+        }
+
+        .newsletter-form {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .newsletter-input,
+        .subscribe-btn {
+          width: 100%;
+        }
+
+        .footer-nav {
+          gap: 15px;
+        }
+
+        .footer-nav a {
+          font-size: 1rem;
+          padding: 6px 12px;
         }
       }
     `}</style>
 
-   
+    <div className="container">
+      {/* Newsletter Section */}
+      <div className="newsletter-box">
+        <h2 className="newsletter-title">Subscribe to Stakequest</h2>
+        <p className="newsletter-subtitle">TO GET EXCLUSIVE BENEFITS</p>
+        <form className="newsletter-form">
+          <input 
+            type="email" 
+            className="newsletter-input" 
+            placeholder="Your Email Address" 
+            required 
+          />
+          <button type="submit" className="subscribe-btn">
+            SUBSCRIBE NOW
+          </button>
+        </form>
+      </div>
 
-    <div className="widget-area">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6 col-xl-auto">
-            <div className="widget footer-widget">
-              <div className="th-widget-about">
-                <div className="about-logo">
-                  <a href="index.html">
-                    <img src="assets/img/logo.svg" alt="StakeQuest" />
-                  </a>
-                </div>
-                <p className="about-text">
-                  StakeQuest Legends combines immersive gaming with blockchain technology, creating a revolutionary play-to-earn experience where every adventure matters.
-                </p>
-                <h3 className="widget_title">Follow <span className="text-theme">With Us:</span></h3>
-                <div className="th-widget-contact">
-                  <div className="th-social">
-                    <a className="facebook" href="https://www.facebook.com/"><i className="fab fa-facebook-f"></i></a>
-                    <a className="twitter" href="https://www.twitter.com/"><img src="assets/img/icon/x-twitter-icon.svg" alt="Twitter" /></a>
-                    <a className="instagram" href="https://www.instagram.com/"><img src="assets/img/icon/instagram-icon.svg" alt="Instagram" /></a>
-                    <a className="linkedin" href="https://www.linkedin.com/"><i className="fab fa-linkedin-in"></i></a>
-                    <a className="google-play" href="https://www.google.com/"><img src="assets/img/icon/google-playstore-icon.svg" alt="Play Store" /></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-md-6 col-xl-auto">
-            <div className="widget widget_nav_menu footer-widget">
-              <h3 className="widget_title">Useful Links</h3>
-              <ul className="menu">
-                <li><a href="blog.html"><i className="far fa-angle-right"></i> Gaming</a></li>
-                <li><a href="blog.html"><i className="far fa-angle-right"></i> Products</a></li>
-                <li><a href="blog.html"><i className="far fa-angle-right"></i> All NFTs</a></li>
-                <li><a href="blog.html"><i className="far fa-angle-right"></i> Domain Name</a></li>
-                <li><a href="blog.html"><i className="far fa-angle-right"></i> Social Network</a></li>
-                <li><a href="blog.html"><i className="far fa-angle-right"></i> Collectibles</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="col-md-6 col-xl-auto">
-            <div className="widget widget_nav_menu footer-widget">
-              <h3 className="widget_title">Supports</h3>
-              <ul className="menu">
-                <li><a href="contact.html"><i className="far fa-angle-right"></i> Help & Support</a></li>
-                <li><a href="contact.html"><i className="far fa-angle-right"></i> Live Auctions</a></li>
-                <li><a href="contact.html"><i className="far fa-angle-right"></i> 24/7 Supports</a></li>
-                <li><a href="contact.html"><i className="far fa-angle-right"></i> Item Details</a></li>
-                <li><a href="contact.html"><i className="far fa-angle-right"></i> Setting & Privacy</a></li>
-                <li><a href="contact.html"><i className="far fa-angle-right"></i> Our News</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="col-md-6 col-xl-auto">
-            <div className="widget newsletter-widget footer-widget">
-              <h3 className="widget_title">Newsletter</h3>
-              <p className="footer-text">
-                Subscribe to our newsletter to get our latest update & news consenter
-              </p>
-            <form className="newsletter-form">
-              <input className="form-control" type="email" placeholder="Email Address" required />
-              <button type="submit" className="th-btn">
-                <i className="fas fa-paper-plane"></i>
-              </button>
-            </form>
-
-            </div>
-          </div>
-        </div>
+      {/* Footer Menu */}
+      <div className="footer-menu">
+        <ul className="footer-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="https://docs.stakequestlegends.com/" target="_blank" rel="noopener noreferrer">Gitbook</a></li>
+          <li><a href="/staking">Staking</a></li>
+          <li><a href="/games">Games</a></li>
+          <li><a href="/roadmap">Roadmap</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/team">Team</a></li>
+        </ul>
       </div>
     </div>
 
-    <div className="copyright-wrap">
+    {/* Copyright */}
+    <div className="copyright">
       <div className="container">
         <p className="copyright-text">
-          <i className="fal fa-copyright"></i> Copyright 2025 <a href="index.html">StakeQuest</a>. All Rights Reserved.
+          &copy; {new Date().getFullYear()} <a href="/">StakeQuest</a>. All Rights Reserved.
         </p>
       </div>
     </div>

@@ -5,33 +5,30 @@ const FaqSection = () => {
 
   const faqs = [
     {
-      question: 'How to buy FOX tokens?',
-      answer: 'It\'s very simple! Register here. In your personal account, create a wallet where you can store your FOX tokens. Then just send any amount to the displayed address in your office.'
+      question: 'Can I play and stake at the same time?',
+      answer: 'No. Our mutually exclusive system means users can only either play to earn or stake to earn at any given moment. This avoids reward exploitation and preserves token stability.'
     },
     { 
-      question: 'What is the value of FOX tokens?', 
-      answer: 'FOX tokens derive their value from platform utility, market demand, and ecosystem growth. The current value can be checked on our official dashboard or supported exchanges.' 
+      question: 'When can I claim my $SQL rewards?', 
+      answer: 'Immediately. All rewards — both gameplay and staking — are claimable in real-time via your profile dashboard. No third-party claim tools or lockups required.' 
     },
     { 
-      question: 'How does staking work?', 
-      answer: 'Staking FOX tokens allows you to earn passive income through our proof-of-stake mechanism. Simply lock your tokens in our staking contract to start earning rewards.' 
+      question: 'Can I bridge my $SQL to other chains?', 
+      answer: 'Yes. StakeQuest offers native cross-chain bridging to Ethereum, Polygon, Arbitrum, and zkSync (coming soon). Bridge activity is transparent and fast (usually under 60 seconds).' 
     },
     { 
-      question: 'How are coins distributed?', 
-      answer: 'Token distribution follows our whitepaper allocation: 40% public sale, 25% ecosystem development, 20% team (vested), 10% partnerships, and 5% community rewards.' 
+      question: 'Are all in-game assets NFTs?', 
+      answer: 'Yes. Characters, weapons, land, and rare items are ERC-721 or ERC-1155 NFTs, giving you full ownership, tradability, and composability.' 
     },
     { 
-      question: 'What wallets support FOX tokens?', 
-      answer: 'FOX is compatible with all ERC-20 wallets including MetaMask, Trust Wallet, and Ledger. We also offer a dedicated mobile wallet for iOS and Android.' 
+      question: 'Can partners integrate with the staking API?', 
+      answer: 'Absolutely. Partners such as launchpads, wallets, and dashboards can plug into our staking logic via API, allowing direct integration and user access.' 
     },
     { 
-      question: 'How can I connect API with my Current Site', 
-      answer: 'Our developer portal provides comprehensive API documentation. Integration takes just 3 steps: generate API keys, install our SDK, and implement the endpoints.' 
+      question: 'Will there be a mobile version?', 
+      answer: 'Yes. A mobile web dashboard is planned for Q1 2026, with a lightweight companion app to follow.' 
     },
-    { 
-      question: 'What is the ICO?', 
-      answer: 'Our Initial Coin Offering (ICO) concluded successfully in Q3 2023, raising $15M. Token holders from the ICO receive additional governance rights and bonus rewards.' 
-    },
+  
   ];
 
   const toggleFAQ = (index) => {
@@ -265,6 +262,7 @@ const FaqSection = () => {
           <p className="faq-subtitle">
             Do have any kind of questions? We're here to help.
           </p>
+          <img src="assets/img/blog/faq.png" alt="" />
         </div>
         
         <div className="faq-right">

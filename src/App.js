@@ -18,6 +18,7 @@ import Contact from './pages/ContactPage';
 import CustomCursor from './components/CustomCursor';
 import ConnectWallet from './pages/ConnectWallet';
 import TeamMembers from './pages/TeamMember';
+import ROadMaps from './pages/RoadMap';
 
 
 function App() {
@@ -49,7 +50,8 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/connectwallet" element={<ConnectWallet />} />
             <Route path="/team_members" element={<TeamMembers />} />
-
+            <Route path="/roadmap" element={<ROadMaps />} />
+            
 
 
             {/* Add other routes like tournament, blog, etc here */}

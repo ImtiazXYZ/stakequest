@@ -10,28 +10,14 @@ import FAQ from '../components/faq/FaqSection';
 import Gallery from '../components/gallery/Gallery';
 import Team from '../components/team/Team';
 import CTA from '../components/cta/Cta';
-import Blog from '../components/blog/Blog';
-import Statistis from '../components/statistics/statistics';
-
-
-const HomePage = () => {
+import ROadMaps from '../components/roadmap/RoadMap';
+const RoadMap = () => {
   return (
     <>
-      <HeroSection />
-      <Marquee />
-      <AboutSection />
-      <GameSection />
-      <GameSectionTwo />
-      <CoreGameSection />
-      <Roadmap />
-      <FAQ />
-      <Statistis/>
-      <Gallery />
-      <Team />
-      {/* <CTA /> */}
-      <Blog />
+     
+      <ROadMaps />
     </>
   );
 };
 
-export default HomePage;
+export default RoadMap;

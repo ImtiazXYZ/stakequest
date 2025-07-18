@@ -1,22 +1,63 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-const connectwallet = () => {
+const ConnectWallet = () => {
+  useEffect(() => {
+    // Initialize animations when component mounts
+    const elements = document.querySelectorAll('[data-animate]');
+    elements.forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    });
+
+    // Countdown timer initialization
+    const launchDate = new Date(2024, 11, 31).getTime();
+    
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = launchDate - now;
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      const daysEl = document.getElementById('wallet-days');
+      const hoursEl = document.getElementById('wallet-hours');
+      const minutesEl = document.getElementById('wallet-minutes');
+      const secondsEl = document.getElementById('wallet-seconds');
+      
+      if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+      if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+      if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+      if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+    };
+    
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
+    
+    return () => clearInterval(timer);
+  }, []);
+
+  // Internal CSS styles
   const styles = {
     section: {
-      padding: '80px 0',
-      background: '#0b0f1a',
+      padding: '100px 0',
+      background: 'linear-gradient(135deg, #0b0f1a 0%, #1a1f33 100%)',
       color: '#fff',
       fontFamily: "'Arial', sans-serif",
-      overflow: 'hidden'
+      overflow: 'hidden',
+      textAlign: 'center',
+      position: 'relative'
     },
     container: {
       maxWidth: '1200px',
       margin: '0 auto',
-      padding: '0 20px'
+      padding: '0 20px',
+      position: 'relative',
+      zIndex: '1'
     },
     titleArea: {
-      marginBottom: '60px',
-      textAlign: 'center'
+      marginBottom: '60px'
     },
     subTitle: {
       display: 'inline-block',
@@ -24,237 +65,231 @@ const connectwallet = () => {
       fontSize: '18px',
       marginBottom: '15px',
       position: 'relative',
-      animation: 'fadeIn 1s ease-out'
+      opacity: '0',
+      transform: 'translateY(20px)',
+      transition: 'all 0.8s ease'
     },
     secTitle: {
-      fontSize: '2.5rem',
+      fontSize: '3.5rem',
       margin: '0',
       color: '#fff',
-      textShadow: '0 0 10px rgba(0, 245, 160, 0.3)',
-      animation: 'glow 2s ease-in-out infinite alternate'
+      fontWeight: '700',
+      textTransform: 'uppercase',
+      letterSpacing: '2px'
     },
-    textTheme: {
-      color: '#00f5a0'
+    comingSoonText: {
+      display: 'inline-block',
+      position: 'relative'
     },
-    sliderArea: {
-      overflow: 'visible',
-      padding: '20px 0'
+    letter: {
+      display: 'inline-block',
+      opacity: '0',
+      transform: 'translateY(20px)',
+      animation: 'walletLetterDrop 0.4s ease forwards'
     },
-    sliderWrapper: {
-      display: 'flex',
-      gap: '30px',
-      padding: '20px 0',
-      overflowX: 'auto',
-      scrollSnapType: 'x mandatory',
-      scrollbarWidth: 'none',
-      msOverflowStyle: 'none',
-      '&::-webkit-scrollbar': {
-        display: 'none'
-      }
-    },
-    blogCard: {
-      minWidth: '350px',
-      background: '#111726',
-      borderRadius: '10px',
-      overflow: 'hidden',
-      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
-      transition: 'all 0.3s ease',
-      scrollSnapAlign: 'start',
-      animation: 'fadeInUp 0.8s ease-out',
-      '&:hover': {
-        transform: 'translateY(-10px)',
-        boxShadow: '0 15px 40px rgba(0, 245, 160, 0.2)'
-      }
-    },
-    blogImg: {
-      height: '220px',
-      overflow: 'hidden',
-      position: 'relative',
-      '& img': {
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        transition: 'transform 0.5s ease'
-      },
-      '&:hover img': {
-        transform: 'scale(1.1)'
-      }
-    },
-    blogContent: {
-      padding: '25px'
-    },
-    blogMeta: {
-      display: 'flex',
-      gap: '15px',
-      marginBottom: '15px',
-      fontSize: '14px',
-      color: '#aaa',
-      '& a': {
-        color: '#aaa',
-        textDecoration: 'none',
-        transition: 'color 0.3s ease',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '5px',
-        '&:hover': {
-          color: '#00f5a0'
-        }
-      }
-    },
-    blogTitle: {
-      fontSize: '1.3rem',
-      margin: '0 0 20px',
-      color: '#fff',
-      '& a': {
-        color: 'inherit',
-        textDecoration: 'none',
-        transition: 'color 0.3s ease',
-        '&:hover': {
-          color: '#00f5a0'
-        }
-      }
-    },
-    linkBtn: {
-      display: 'inline-flex',
-      alignItems: 'center',
+    exclamation: {
+      display: 'inline-block',
       color: '#00f5a0',
-      textDecoration: 'none',
+      opacity: '0',
+      transform: 'scale(0)',
+      animation: 'walletPopIn 0.5s ease 1.1s forwards'
+    },
+    countdownContainer: {
+      margin: '40px auto',
+      opacity: '0',
+      transform: 'translateY(30px)',
+      transition: 'all 0.8s ease 0.5s'
+    },
+    countdown: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: '20px'
+    },
+    countdownItem: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    },
+    countdownNumber: {
+      fontSize: '3.5rem',
+      fontWeight: '700',
+      background: 'linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%)',
+      WebkitBackgroundClip: 'text',
+      backgroundClip: 'text',
+      color: 'transparent',
+      textShadow: '0 2px 10px rgba(0, 245, 160, 0.3)'
+    },
+    countdownLabel: {
+      fontSize: '1rem',
+      color: 'rgba(255, 255, 255, 0.7)',
+      textTransform: 'uppercase',
+      letterSpacing: '2px',
+      marginTop: '5px'
+    },
+    countdownSeparator: {
+      fontSize: '2rem',
+      color: '#00f5a0',
+      marginBottom: '30px'
+    },
+    progressContainer: {
+      maxWidth: '600px',
+      margin: '60px auto',
+      opacity: '0',
+      transform: 'translateY(30px)',
+      transition: 'all 0.8s ease 0.7s'
+    },
+    progressText: {
+      fontSize: '1.1rem',
+      color: 'rgba(255, 255, 255, 0.8)',
+      marginBottom: '15px'
+    },
+    progressBar: {
+      height: '8px',
+      background: 'rgba(255, 255, 255, 0.1)',
+      borderRadius: '4px',
+      overflow: 'hidden',
+      position: 'relative'
+    },
+    progressFill: {
+      height: '100%',
+      background: 'linear-gradient(90deg, #00f5a0 0%, #00d9f5 100%)',
+      borderRadius: '4px',
+      position: 'relative',
+      transition: 'width 1s ease',
+      width: '75%'
+    },
+    progressPercent: {
+      fontSize: '1.2rem',
+      color: '#00f5a0',
+      marginTop: '10px',
+      fontWeight: '600'
+    },
+    ctaButton: {
+      marginTop: '50px',
+      opacity: '0',
+      transform: 'translateY(30px)',
+      transition: 'all 0.8s ease 0.9s'
+    },
+    notifyBtn: {
+      background: 'transparent',
+      color: '#00f5a0',
+      border: '2px solid #00f5a0',
+      padding: '15px 40px',
+      fontSize: '1.1rem',
       fontWeight: '600',
+      borderRadius: '30px',
+      cursor: 'pointer',
       transition: 'all 0.3s ease',
-      '&:hover': {
-        transform: 'translateX(5px)',
-        color: '#00d9f5'
-      }
+      position: 'relative',
+      overflow: 'hidden'
     },
-    '@keyframes glow': {
-      from: {
-        textShadow: '0 0 10px rgba(0, 245, 160, 0.3)'
-      },
-      to: {
-        textShadow: '0 0 15px rgba(0, 245, 160, 0.6), 0 0 20px rgba(0, 245, 160, 0.4)'
-      }
-    },
-    '@keyframes fadeIn': {
-      from: {
-        opacity: 0,
-        transform: 'translateY(10px)'
-      },
-      to: {
-        opacity: 1,
-        transform: 'translateY(0)'
-      }
-    },
-    '@keyframes fadeInUp': {
-      from: {
-        opacity: 0,
-        transform: 'translateY(30px)'
-      },
-      to: {
-        opacity: 1,
-        transform: 'translateY(0)'
-      }
+    btnIcon: {
+      marginLeft: '10px',
+      transition: 'all 0.3s ease'
     }
   };
 
-  const blogs = [
-    {
-      id: 1,
-      img: "assets/img/blog/blog_1_1.jpg",
-      author: "By Jonson",
-      date: "30 Nov, 2024",
-      title: "Strategies for Dominating Your Favorite Game",
-      delay: "0.1s"
-    },
-    {
-      id: 2,
-      img: "assets/img/blog/blog_1_2.jpg",
-      author: "By Jonson",
-      date: "25 Dec, 2024",
-      title: "Breaking Barriers and Shaping the Future",
-      delay: "0.2s"
-    },
-    {
-      id: 3,
-      img: "assets/img/blog/blog_1_3.jpg",
-      author: "By Jonson",
-      date: "23 Jun, 2024",
-      title: "Taking Customization to the Next Level",
-      delay: "0.3s"
-    },
-    {
-      id: 4,
-      img: "assets/img/blog/blog_1_1.jpg",
-      author: "By Jonson",
-      date: "30 Nov, 2024",
-      title: "Strategies for Dominating Your Favorite Game",
-      delay: "0.4s"
-    },
-    {
-      id: 5,
-      img: "assets/img/blog/blog_1_2.jpg",
-      author: "By Jonson",
-      date: "25 Dec, 2024",
-      title: "Breaking Barriers and Shaping the Future",
-      delay: "0.5s"
-    },
-    {
-      id: 6,
-      img: "assets/img/blog/blog_1_3.jpg",
-      author: "By Jonson",
-      date: "23 Jun, 2024",
-      title: "Taking Customization to the Next Level",
-      delay: "0.6s"
+  // Animation styles that need to be injected
+  const animationStyles = `
+    @keyframes walletLetterDrop {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-  ];
+    @keyframes walletPopIn {
+      0% {
+        opacity: 0;
+        transform: scale(0);
+      }
+      80% {
+        transform: scale(1.2);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    @keyframes walletProgressShine {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+  `;
 
   return (
-    <section id="blog-sec" style={styles.section}>
-      <style>
-        {`
-          @keyframes glow {
-            from {
-              text-shadow: 0 0 10px rgba(0, 245, 160, 0.3);
-            }
-            to {
-              text-shadow: 0 0 15px rgba(0, 245, 160, 0.6), 0 0 20px rgba(0, 245, 160, 0.4);
-            }
-          }
-          @keyframes fadeIn {
-            from {
-              opacity: 0;
-              transform: translateY(10px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-          @keyframes fadeInUp {
-            from {
-              opacity: 0;
-              transform: translateY(30px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-        `}
-      </style>
+    <section id="wallet-coming-soon" style={styles.section}>
+      <style>{animationStyles}</style>
       <div style={styles.container}>
         <div style={styles.titleArea}>
-          <span style={styles.subTitle}># Wallet</span>
+          <span style={styles.subTitle} data-animate></span>
           <h2 style={styles.secTitle}>
-           Coming Soon <span style={styles.textTheme}>!</span>
+            <span style={styles.comingSoonText}>
+              <span style={{...styles.letter, animationDelay: '0.1s'}}>C</span>
+              <span style={{...styles.letter, animationDelay: '0.2s'}}>o</span>
+              <span style={{...styles.letter, animationDelay: '0.3s'}}>m</span>
+              <span style={{...styles.letter, animationDelay: '0.4s'}}>i</span>
+              <span style={{...styles.letter, animationDelay: '0.5s'}}>n</span>
+              <span style={{...styles.letter, animationDelay: '0.6s'}}>g</span>
+              <span style={{display: 'inline-block', width: '10px'}}>&nbsp;</span>
+              <span style={{...styles.letter, animationDelay: '0.7s'}}>S</span>
+              <span style={{...styles.letter, animationDelay: '0.8s'}}>o</span>
+              <span style={{...styles.letter, animationDelay: '0.9s'}}>o</span>
+              <span style={{...styles.letter, animationDelay: '1.0s'}}>n</span>
+            </span>
+            <span style={styles.exclamation}>!</span>
           </h2>
         </div>
 
-        <div style={styles.sliderArea}>
-          
+        <div style={styles.countdownContainer} data-animate>
+          <div style={styles.countdown}>
+            <div style={styles.countdownItem}>
+              <span style={styles.countdownNumber} id="wallet-days">00</span>
+              <span style={styles.countdownLabel}>Days</span>
+            </div>
+            <div style={styles.countdownSeparator}>:</div>
+            <div style={styles.countdownItem}>
+              <span style={styles.countdownNumber} id="wallet-hours">00</span>
+              <span style={styles.countdownLabel}>Hours</span>
+            </div>
+            <div style={styles.countdownSeparator}>:</div>
+            <div style={styles.countdownItem}>
+              <span style={styles.countdownNumber} id="wallet-minutes">00</span>
+              <span style={styles.countdownLabel}>Minutes</span>
+            </div>
+            <div style={styles.countdownSeparator}>:</div>
+            <div style={styles.countdownItem}>
+              <span style={styles.countdownNumber} id="wallet-seconds">00</span>
+              <span style={styles.countdownLabel}>Seconds</span>
+            </div>
+          </div>
+        </div>
+
+        <div style={styles.progressContainer} data-animate>
+          <div style={styles.progressText}>Development Progress</div>
+          <div style={styles.progressBar}>
+            <div style={styles.progressFill}></div>
+          </div>
+          <div style={styles.progressPercent}>75%</div>
+        </div>
+
+        <div style={styles.ctaButton} data-animate>
+          <button style={styles.notifyBtn}>
+            Notify Me When Ready
+            <span style={styles.btnIcon}>→</span>
+          </button>
         </div>
       </div>
     </section>
   );
 };
 
-export default connectwallet;
+export default ConnectWallet;

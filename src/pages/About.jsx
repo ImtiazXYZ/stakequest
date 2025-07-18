@@ -24,11 +24,7 @@ const About = () => {
       <AboutSection />
       <StatsAndTournaments/>
       <WhyChooseUs/>
-      <Gallery />
-      <Team />
-      <ClientArea/>
-      <CTA />
-      <Blog />
+     
     </>
   );
 };

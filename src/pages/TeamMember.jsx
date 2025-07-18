@@ -10,13 +10,17 @@ import FAQ from '../components/faq/FaqSection';
 import Gallery from '../components/gallery/Gallery';
 import Team from '../components/team/Team';
 import CTA from '../components/cta/Cta';
-import TeamMembers from '../components/teammember/TeamMember';
+import Blog from '../components/blog/Blog';
+import Statistis from '../components/statistics/statistics';
 
 const TeamMember = () => {
   return (
     <>
+      
      
-      <TeamMembers />
+     
+      <Team />
+       <FAQ />
     </>
   );
 };
